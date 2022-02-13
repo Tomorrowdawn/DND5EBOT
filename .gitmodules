@@ -1,0 +1,3 @@
+[submodule "mirai/mirai"]
+	path = mirai/mirai
+	url = https://github.com/Tomorrowdawn/mirai.git
