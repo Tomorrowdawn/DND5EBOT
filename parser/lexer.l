@@ -28,7 +28,7 @@ INTEGER {digit}+
 [(] {return LPAREN;}
 [)] {return RPAREN;}
 \n {return END;}
-gep {pass_node(yytext);return GEP;}
+GEP {pass_node(yytext);return GEP;}
 [Kk] {pass_node(yytext);return K;}
 [Ll] {pass_node(yytext);return L;}
 [dD] {return DICE;}

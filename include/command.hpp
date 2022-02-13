@@ -10,15 +10,12 @@
 class Command : public Factory< Command,std::string >{
    public:
     Command(Key){}
-    static auto& commands(){
-        static std::vector<std::string> cmds;
-        auto& map = Factory::data();
-        std::transform(map.begin(),map.end(),cmds.begin(),
-                                [](auto pair){return pair.first;});
-        return cmds;
+    static auto commands(){
+        return Factory::cmds();
     }
     virtual std::string analyze() = 0;
 };
+
 
 std::string trim(std::string S);
 

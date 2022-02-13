@@ -7,8 +7,10 @@
 #include <memory>
 #include <string>
 #include <unordered_map>
+#include <vector>
 //#include <cxxabi.h>
 
+/*
 std::string demangle(const char *name) {
 #ifdef __CXXABI
     int status = -4;  // some arbitrary value to eliminate the compiler warning
@@ -26,6 +28,7 @@ std::string demangle(const char *name) {
     return "";
 #endif
 }
+*/
 
 /*Acknowledgement:
 This code thanks to this excellent blog: http://www.nirfriedman.com/2018/04/29/unforgettable-factory/
@@ -38,32 +41,8 @@ tomorrowdawn 22/2/13
 //If you're familiar with English, you can access url above.
 //PS2:For better programming,I've changed some part of source file.
 
-std::string match(std::string& input,std::vector<std::string>& cmds){
-    std::string head;
-    int needed[200];
-    for(int i=0;i<cmds.size();i++)
-        needed[i] = i;
-    needed[cmds.size()] = -2;
-    for(int i=0;i< input.size();i++){
-        for(int j=0;needed[j]!=-2;j++){
-            if(needed[j]==-1)
-                continue;
-            if(cmds[needed[j]][i]!=input[i]){
-                needed[j] = -1;
-            }
-        }
-        int count = 0;
-        int cmd = 0;
-        for(int j=0;needed[j]!=-2;j++){
-            if(needed[j]!=-1)
-                count++;
-                cmd = j;
-        }
-        if(count == 1)
-            return cmds[cmd];
-        else if(count == 0)
-            throw "no command match";
-    }
+namespace DND5E{
+std::string name_match(const std::string& input,std::vector<std::string>& cmds);
 }
 
 template <class Base, class... Args>
@@ -76,13 +55,14 @@ class Factory {
 
     template <class... T>
     static std::unique_ptr<Base> fetch(const std::string&s,T&& ...args){
-        std::vector<std::string> cmds = Base::commands();
+        static std::vector<std::string> cmds = Base::commands();
         std::string head;
         try{
-            head = match(s,cmds);
+            head = DND5E::name_match(s,cmds);
         }catch(...){
             throw "command no match.";
         }
+        //std::cout << "head:" + head <<std ::endl; 
         return make(head,std::forward<T>(args)...);
     }
 
@@ -95,6 +75,7 @@ class Factory {
             Factory::data()[name] = [](Args... args) -> std::unique_ptr<Base> {
                 return std::make_unique<T>(std::forward<Args>(args)...);
             };
+            Factory::cmds().push_back(name);
             return true;
         }
         static bool registered;
@@ -125,6 +106,10 @@ class Factory {
     static auto &data() {
         static std::unordered_map<std::string, FuncType> s;
         return s;
+    }
+    static std::vector<std::string> &cmds(){
+        static std::vector<std::string> cmd;
+        return cmd;
     }
 };
 

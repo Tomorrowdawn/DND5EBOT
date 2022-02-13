@@ -37,6 +37,17 @@ endif()
 file(GLOB SOURCES "src/*.cpp")
 file(GLOB PARSER "parser/*.c")
 
+
+#add_executable(
+ #   DND5EBOT
+
+ #   mirai/single_include/MiraiCP/MiraiCP.cpp # MiraiCP 源文件
+  #     ${PARSER} #parser generated
+   #     src/dice.c
+    #    test/test.cpp
+#)
+
+
 # 添加动态库编译目标
 add_library(
         DND5EBOT

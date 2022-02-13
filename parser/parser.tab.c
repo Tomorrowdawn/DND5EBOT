@@ -106,10 +106,7 @@ Dnode* node(const char *node_name, int children_num, ...);
 # define YYERROR_VERBOSE 0
 #endif
 
-/* In a future release of Bison, this section will be replaced
-   by #include "parser.tab.h".  */
-#ifndef YY_YY_PARSER_TAB_H_INCLUDED
-# define YY_YY_PARSER_TAB_H_INCLUDED
+
 /* Enabling traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -150,7 +147,7 @@ typedef union YYSTYPE
 
 
 /* Line 387 of yacc.c  */
-#line 154 "parser.tab.c"
+#line 151 "parser.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -173,12 +170,12 @@ int yyparse ();
 #endif
 #endif /* ! YYPARSE_PARAM */
 
-#endif /* !YY_YY_PARSER_TAB_H_INCLUDED  */
+
 
 /* Copy the second part of user declarations.  */
 
 /* Line 390 of yacc.c  */
-#line 182 "parser.tab.c"
+#line 179 "parser.tab.c"
 
 #ifdef short
 # undef short
@@ -1563,7 +1560,7 @@ yyreduce:
 
 
 /* Line 1792 of yacc.c  */
-#line 1567 "parser.tab.c"
+#line 1564 "parser.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires

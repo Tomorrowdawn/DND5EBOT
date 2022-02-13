@@ -43,7 +43,13 @@ class Main : public CPPPlugin {
             if(message.find(".",0)!=0 && message.find("。",0)!=0){
                 return;//忽略
             }
-            message = message.substr(1);
+            string sep;
+            if(message.find(".",0)==0)
+                sep = ".";
+            else 
+                sep = "。";
+            Logger::logger.info(message);
+            message = message.substr(sep.length());
             transform(message.begin(),message.end(),message.begin(),::toupper);
             //全大写处理
             string answer;
